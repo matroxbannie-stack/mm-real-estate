@@ -125,13 +125,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-
 #feat,#all{grid-template-columns:repeat(auto-fill,minmax(280px,380px));justify-content:start}
 .im{height:auto;aspect-ratio:4/3;overflow:hidden}.im img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .6s ease}.cd:hover .im img{transform:scale(1.05)}
 @media (max-width:640px){#feat,#all{grid-template-columns:1fr}}
+.im{position:relative}.im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
 </head>
 <body>
 <nav><div class="w">
 <a class="logo" href="#home" aria-label="MM Real Estate"><img class="lm" src="images/logo-mark.png" alt=""><span class="lt"><span class="gd">MM</span> REAL <span class="gd">ESTATE</span></span></a>
 <button id="burger" aria-label="Menu" aria-expanded="false">Menu</button>
-<div class="menu" id="menu"><a href="#home" data-p="home">Home</a><a href="#properties" data-p="properties">Properties</a><a href="#about" data-p="about">About</a><a href="#contact" data-p="contact">Contact</a></div>
+<div class="menu" id="menu"><a href="#home" data-p="home">Home</a><a href="#properties" data-p="properties">Properties</a><a href="#about" data-p="about">About</a><a href="#contact" data-p="contact">Contact</a><a href="#admin" data-p="admin" id="adm" style="display:none">Admin</a></div>
 </div></nav>
 
 <main>
@@ -201,6 +204,25 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-
 </div></section>
 </div>
 
+<div class="pg" id="admin"><div class="ph"><div class="w"><div class="eb" style="color:var(--ac)">Admin</div><h1>Manage properties</h1></div></div>
+<section class="s"><div class="w"><p id="adm-msg">Checking access…</p>
+<div id="lg" style="display:none;max-width:420px"><h3 style="margin-bottom:16px">Admin login</h3><form class="fm" id="lf"><label>Email<input id="le" type="email" required autocomplete="username"></label><label>Password<input id="lp" type="password" required autocomplete="current-password"></label><button class="btn" type="submit">Log in</button><p id="lm" role="status" style="color:var(--mu);margin:0"></p></form></div>
+<div id="adm-box" style="display:none"><div style="text-align:right;margin-bottom:16px"><button class="btn o" id="lo" style="color:var(--ink);border-color:var(--ln)">Log out</button></div><div class="ct">
+<form class="fm" id="af"><h3>Add a new property</h3>
+<label>Title<input id="at" required placeholder="e.g. 3-Bed House"></label>
+<label>Listing type<select id="ak"><option value="sale">For Sale</option><option value="rent">For Rent</option></select></label>
+<label>Property type<select id="ay"><option>House</option><option>Flat</option><option>Plot</option><option>Shop</option></select></label>
+<label>Area / location<input id="aa" required></label>
+<label>Bedrooms<input id="ab" type="number" min="0"></label>
+<label>Bathrooms<input id="aba" type="number" min="0"></label>
+<label>Size (e.g. 120 Sq Yd)<input id="as"></label>
+<label>Price (private, not shown on the website)<input id="ap" inputmode="numeric"></label>
+<label>Photo (optional)<input id="ai" type="file" accept="image/*"></label>
+<button class="btn" type="submit" id="asv">Add property</button><p id="ast" role="status"></p></form>
+<div><h3 style="margin-bottom:16px">Current listings</h3><div id="alist"></div>
+<h3 style="margin:36px 0 16px">Website settings</h3><form class="fm" id="sf"><label>Business name<input id="sn"></label><label>City<input id="sc"></label><label>Phone (shown on site)<input id="sp"></label><label>WhatsApp number (country code, digits only)<input id="sw" inputmode="numeric"></label><label>Email<input id="se" type="email"></label><label>Office address<input id="sa"></label><label>Facebook page link<input id="sfb" placeholder="facebook.com/yourpage"></label><label>Instagram link<input id="sig" placeholder="instagram.com/yourname"></label><label>TikTok link<input id="stt" placeholder="tiktok.com/@yourname"></label><label>YouTube link<input id="syt" placeholder="youtube.com/@yourchannel"></label><label>LinkedIn link<input id="sli"></label><label>X (Twitter) link<input id="sx"></label><label>Hero photo<input id="sh" type="file" accept="image/*"></label><label>Hero background video (mp4, under 20 MB)<input id="sv" type="file" accept="video/mp4,video/webm"></label><button class="btn" type="submit">Save settings</button><p id="ss" role="status"></p></form></div>
+</div></div></div></section></div>
+
 <div class="pg" id="contact">
 <div class="ph"><div class="w"><div class="eb" style="color:var(--ac)">Contact</div><h1>Let’s talk about your property</h1></div></div>
 <section class="s"><div class="w ct">
@@ -226,7 +248,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-
 <a class="fw" id="fwa" href="#">WhatsApp</a>
 <footer><div class="w"><div class="fc">
 <div><img src="images/logo-full.png" alt="MM Real Estate" style="height:96px;width:auto;margin-bottom:12px"><h4>MM REAL ESTATE</h4><p>Buy, sell and rent property in [City] with confidence.</p><div class="soc" id="soc"></div></div>
-<div><h4>PAGES</h4><a href="#home">Home</a><a href="#properties">Properties</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+<div><h4>PAGES</h4><a href="#home">Home</a><a href="#properties">Properties</a><a href="#about">About</a><a href="#contact">Contact</a><a href="#admin" style="font-size:13px;opacity:.7">Admin login</a></div>
 <div><h4>CONTACT</h4><p>[Phone]<br>[Email]<br>[Office address]</p></div>
 </div><div class="bar">© [Year] MM Real Estate. All rights reserved. · Reg. no. [Number]</div></div></footer>
 
@@ -255,27 +277,54 @@ document.getElementById('wa').href=document.getElementById('fwa').href=wa('Hello
 var mn=document.getElementById('menu'),bg=document.getElementById('burger');
 bg.onclick=function(){var o=mn.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
 function route(){
-var h=location.hash.slice(1);if(['home','properties','about','contact'].indexOf(h)<0)h='home';
+var h=location.hash.slice(1);if(['home','properties','about','contact','admin'].indexOf(h)<0)h='home';
 document.querySelectorAll('.pg').forEach(function(p){p.classList.toggle('on',p.id===h)});
 document.querySelectorAll('.menu a').forEach(function(a){a.classList.toggle('on',a.dataset.p===h)});
 mn.classList.remove('open');bg.setAttribute('aria-expanded','false');window.scrollTo(0,0)}
 (function(){if(!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on2');io.unobserve(x.target)}})},{threshold:.12});document.querySelectorAll('.g>*,section h2,.st .i,details').forEach(function(el,i){el.classList.add('rv');el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)})})();
 window.addEventListener('hashchange',route);draw();route();
+var CFG=window.MM_CONFIG||{},sb=null,SESS=null,ROWS=[],SET={};
+try{if(CFG.url&&CFG.key&&window.supabase)sb=window.supabase.createClient(CFG.url,CFG.key)}catch(e){}
 function esc(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-var SET={};
 var SL=[['fb','Facebook','<rect width="24" height="24" rx="6" fill="#1877F2"/><path fill="#fff" d="M13.5 20v-6.5h2.2l.4-2.7h-2.6V9.1c0-.8.2-1.3 1.3-1.3h1.4V5.4c-.2 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.4v1.9H8.6v2.7h2.2V20z"/>'],['ig','Instagram','<defs><radialGradient id="igg" cx=".3" cy="1" r="1.25"><stop offset="0" stop-color="#FED576"/><stop offset=".3" stop-color="#F47133"/><stop offset=".6" stop-color="#BC3081"/><stop offset="1" stop-color="#4C63D2"/></radialGradient></defs><rect width="24" height="24" rx="6" fill="url(#igg)"/><rect x="5.5" y="5.5" width="13" height="13" rx="4" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="16" cy="8" r=".9" fill="#fff"/>'],['tt','TikTok','<rect width="24" height="24" rx="6" fill="#000" stroke="#333"/><g fill="none" stroke-width="2" stroke-linecap="round"><path transform="translate(-.8 -.6)" stroke="#25F4EE" d="M13.3 5v8.6a2.7 2.7 0 1 1-2.7-2.7M13.3 5c.3 2 1.6 3.2 3.7 3.5"/><path transform="translate(.8 .6)" stroke="#FE2C55" d="M13.3 5v8.6a2.7 2.7 0 1 1-2.7-2.7M13.3 5c.3 2 1.6 3.2 3.7 3.5"/><path stroke="#fff" d="M13.3 5v8.6a2.7 2.7 0 1 1-2.7-2.7M13.3 5c.3 2 1.6 3.2 3.7 3.5"/></g>'],['yt','YouTube','<rect width="24" height="24" rx="6" fill="#fff"/><rect x="2.5" y="6" width="19" height="12" rx="3.5" fill="#FF0000"/><path fill="#fff" d="M10 9.2v5.6l4.8-2.8z"/>'],['li','LinkedIn','<rect width="24" height="24" rx="6" fill="#0A66C2"/><path fill="#fff" d="M6.5 9.5h2.4V17H6.5zM7.7 5.7a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8zM10.5 9.5h2.3v1c.4-.7 1.2-1.2 2.3-1.2 2.3 0 2.9 1.5 2.9 3.5V17h-2.4v-3.4c0-.9 0-1.900-1.200-1.900s-1.400.9-1.400 1.900V17h-2.400z"/>'],['x','X','<rect width="24" height="24" rx="6" fill="#000" stroke="#555"/><path fill="#fff" d="M13.6 11L18.3 5.5h-1.100l-4.100 4.800-3.300-4.800H5.900l4.900 7.200-4.900 5.700H7l4.300-5 3.400 5h3.800zM8 6.400h1.700l7.700 11.200h-1.700z"/>']];
+function norm(r){return {id:r.id,t:esc(r.title||''),a:esc(r.area||''),k:r.kind==='rent'?'rent':'sale',y:r.ptype||'House',b:+r.beds||0,ba:+r.baths||0,s:esc(r.size||'-'),p:esc(r.price||''),img:r.image_url?esc(r.image_url):'',done:!!r.done}}
 function applySet(){var map={'[Your Name]':SET.n,'[City]':SET.c,'[Phone]':SET.p,'[Email]':SET.e,'[Office address]':SET.a},w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
 while(n=w.nextNode()){var tg=n.parentNode.tagName;if(tg==='SCRIPT'||tg==='STYLE')continue;if(n._o===undefined)n._o=n.nodeValue;var t=n._o;for(var k in map)if(map[k])t=t.split(k).join(map[k]);n.nodeValue=t}
-if(SET.w)PHONE=SET.w;
+if(SET.w)PHONE=SET.w;if(SET.n)document.title=SET.n+' – Buy, Sell & Rent';
 var hs=document.querySelector('.hero'),ov=document.getElementById('hv');
-if(SET.vd){if(!ov){ov=document.createElement('video');ov.id='hv';ov.className='hv';ov.muted=true;ov.loop=true;ov.autoplay=true;ov.playsInline=true;ov.setAttribute('aria-hidden','true');hs.insertBefore(ov,hs.firstChild)}ov.src=SET.vd;if(ov.play)ov.play().catch(function(){})}
+if(SET.vd){if(!ov){ov=document.createElement('video');ov.id='hv';ov.className='hv';ov.muted=true;ov.loop=true;ov.autoplay=true;ov.playsInline=true;ov.setAttribute('aria-hidden','true');hs.insertBefore(ov,hs.firstChild)}ov.src=SET.vd;if(ov.play)ov.play().catch(function(){})}else if(ov)ov.remove();
 var v=document.querySelector('.hero .v');if(v._o===undefined)v._o=v.innerHTML;v.innerHTML=SET.h?'<img class="hp" src="'+esc(SET.h)+'" alt="">':v._o;
+[['sn','n'],['sc','c'],['sp','p'],['sw','w'],['se','e'],['sa','a'],['sfb','fb'],['sig','ig'],['stt','tt'],['syt','yt'],['sli','li'],['sx','x']].forEach(function(f){var i=document.getElementById(f[0]);if(i&&!i.value)i.value=SET[f[1]]||''});
 var m=wa('Hello, I would like to talk about a property.');document.getElementById('wa').href=document.getElementById('fwa').href=document.getElementById('cw').href=m;
 if(SET.p)document.getElementById('ct').href='tel:'+SET.p.replace(/[^+\d]/g,'');
 document.getElementById('soc').innerHTML=SL.filter(function(x){return /^https?:\/\//i.test(SET[x[0]]||'')}).map(function(x){return '<a class="so" href="'+esc(SET[x[0]])+'" target="_blank" rel="noopener noreferrer" aria-label="'+x[1]+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+x[2]+'</svg></a>'}).join('');
 feat();draw()}
-fetch('config.json').then(function(r){return r.json()}).then(function(c){SET=c;applySet()}).catch(function(){});
-fetch('properties.json').then(function(r){return r.json()}).then(function(a){L=a.filter(function(x){return !x.done});feat();draw()}).catch(function(){});
+async function loadSet(){var d={};try{if(sb){var r=await sb.from('settings').select('data').eq('id',1).maybeSingle();d=(r.data&&r.data.data)||{}}else d=await (await fetch('config.json')).json()}catch(e){}SET=d;applySet()}
+async function loadProps(){try{if(sb){var r=await sb.from('properties').select('*').order('created_at',{ascending:false});ROWS=(r.data||[]).map(norm)}
+else{var a=await (await fetch('properties.json')).json();ROWS=a.map(function(x,i){return {id:'s'+i,t:esc(x.t),a:esc(x.a),k:x.k,y:x.y,b:x.b,ba:x.ba,s:esc(x.s||'-'),p:'',img:x.img?esc(x.img):'',done:!!x.done}})}}catch(e){ROWS=[]}
+L=ROWS.filter(function(x){return !x.done});feat();draw();alist()}
+function setAdmin(){var on=!!SESS;document.getElementById('adm').style.display=on?'':'none';document.getElementById('adm-box').style.display=on?'block':'none';document.getElementById('lg').style.display=on?'none':'block';document.getElementById('adm-msg').style.display='none';if(!sb)document.getElementById('lm').textContent='Database is not connected yet. Fill in config.js first (see README).'}
+function alist(){var el=document.getElementById('alist');if(!el)return;var bs='class="btn o" style="color:var(--ink);border-color:var(--ln)"';el.innerHTML=ROWS.length?ROWS.map(function(x){return '<div class="cd" style="padding:14px 16px;margin-bottom:12px;flex-direction:row;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between"><div><b>'+x.t+'</b><div class="mt"><span>'+(x.k==='sale'?'For Sale':'For Rent')+'</span>'+(x.p?'<span>'+x.p+'</span>':'')+(x.done?'<span>('+(x.k==='sale'?'Sold':'Rented')+')</span>':'')+'</div></div><div style="display:flex;gap:8px"><button '+bs+' data-a="done" data-id="'+x.id+'">'+(x.done?'Relist':(x.k==='sale'?'Mark sold':'Mark rented'))+'</button><button '+bs+' data-a="del" data-id="'+x.id+'">Delete</button></div></div>'}).join(''):'<p style="color:var(--mu)">No properties yet. Add your first one with the form.</p>'}
+async function shrink(f){try{var b=await createImageBitmap(f),s=Math.min(1,1600/Math.max(b.width,b.height)),c=document.createElement('canvas');c.width=Math.round(b.width*s);c.height=Math.round(b.height*s);c.getContext('2d').drawImage(b,0,0,c.width,c.height);return await new Promise(function(res){c.toBlob(function(x){res(x||f)},'image/jpeg',.85)})}catch(e){return f}}
+async function up(f,pre){var vid=(f.type||'').indexOf('video')===0,blob=vid?f:await shrink(f),ext=vid?((f.type.split('/')[1]||'mp4').split(';')[0]):'jpg',path=pre+'/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.'+ext,r=await sb.storage.from('photos').upload(path,blob,{contentType:blob.type||undefined,cacheControl:'31536000'});if(r.error)throw r.error;return sb.storage.from('photos').getPublicUrl(path).data.publicUrl}
+document.getElementById('alist').onclick=async function(e){var b=e.target.closest('button');if(!b||!sb||!SESS)return;var id=b.dataset.id;
+if(b.dataset.a==='del'){if(!confirm('Delete this property?'))return;await sb.from('properties').delete().eq('id',id)}
+else{var r=ROWS.filter(function(x){return x.id===id})[0];await sb.from('properties').update({done:!r.done}).eq('id',id)}
+loadProps()};
+document.getElementById('lf').onsubmit=async function(e){e.preventDefault();var m=document.getElementById('lm');if(!sb){m.textContent='Database is not connected yet.';return}m.textContent='Checking…';
+var r=await sb.auth.signInWithPassword({email:document.getElementById('le').value.trim(),password:document.getElementById('lp').value});
+if(r.error){m.textContent='Wrong email or password.';return}SESS=r.data.session;e.target.reset();m.textContent='';setAdmin()};
+document.getElementById('lo').onclick=async function(){if(sb)await sb.auth.signOut();SESS=null;setAdmin()};
+document.getElementById('af').onsubmit=async function(e){e.preventDefault();var st=document.getElementById('ast'),bt=document.getElementById('asv');if(!sb||!SESS){st.textContent='Please log in first.';return}bt.disabled=true;st.textContent='Saving…';
+try{var g=function(i){return document.getElementById(i).value.trim()},f=document.getElementById('ai').files[0],img=f?await up(f,'props'):'';
+var r=await sb.from('properties').insert({title:g('at'),area:g('aa'),kind:g('ak'),ptype:g('ay'),beds:+g('ab')||0,baths:+g('aba')||0,size:g('as')||'-',price:g('ap'),image_url:img,done:false});if(r.error)throw r.error;
+e.target.reset();st.textContent='Property added. It is live on the website.';await loadProps()}catch(err){st.textContent='Could not save: '+(err&&err.message||'please try again')}bt.disabled=false};
+document.getElementById('sf').onsubmit=async function(e){e.preventDefault();var st=document.getElementById('ss');if(!sb||!SESS){st.textContent='Please log in first.';return}st.textContent='Saving…';
+try{var g=function(i){return document.getElementById(i).value.trim()},nu=function(v){return v&&!/^https?:\/\//i.test(v)?'https://'+v:v},o={n:g('sn'),c:g('sc'),p:g('sp'),w:g('sw').replace(/\D/g,''),e:g('se'),a:g('sa'),fb:nu(g('sfb')),ig:nu(g('sig')),tt:nu(g('stt')),yt:nu(g('syt')),li:nu(g('sli')),x:nu(g('sx')),h:SET.h||'',vd:SET.vd||''},f=document.getElementById('sh').files[0],vf=document.getElementById('sv').files[0];
+if(f)o.h=await up(f,'site');if(vf)o.vd=await up(vf,'site');
+var r=await sb.from('settings').upsert({id:1,data:o});if(r.error)throw r.error;SET=o;applySet();st.textContent='Settings saved.'}catch(err){st.textContent='Could not save settings: '+(err&&err.message||'try again')}};
+if(sb){sb.auth.getSession().then(function(r){SESS=r.data.session;setAdmin()});sb.auth.onAuthStateChange(function(_e,x){SESS=x;setAdmin()})}else setAdmin();
+loadSet();loadProps();
 </script>
 </body>
 </html>

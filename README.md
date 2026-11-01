@@ -1,30 +1,33 @@
-# MM Real Estate website
+# MM Real Estate: admin panel aur login wali website
 
-Simple static website. Koi build ya server nahi chahiye, seedha Vercel par chalti hai.
+Frontend Vercel par chalta hai. Properties, photos aur login Supabase (free) mein rehte hain.
 
-## Files
-- `index.html`     poori website
-- `config.json`    business ka naam, phone, WhatsApp, email, address, social media links
-- `properties.json` saari properties (neeche dekhein)
-- `images/`        logo aur property photos
+## Setup (sirf ek baar)
 
-## Property add karna
-`properties.json` mein ek naya hissa jodein, aur photo `images/` folder mein daalein:
+**Step 1. Supabase account**
+supabase.com par sign up karein, "New project" banayein (naam: mm-real-estate, ek database password rakhein aur save kar lein).
 
-    {
-      "t": "4 Bed House, Clifton",
-      "a": "Clifton, Karachi",
-      "k": "sale",            (sale ya rent)
-      "y": "House",           (House, Flat, Plot ya Shop)
-      "b": 4, "ba": 3,
-      "s": "240 Sq Yd",
-      "img": "images/clifton-house.jpg",
-      "done": false           (bik gayi ya kiraye par chali gayi to true likhein)
-    }
+**Step 2. Database banana**
+Supabase mein left menu se **SQL Editor** kholein. `supabase-setup.sql` file ka poora text paste karein aur **Run** dabayein. "Success" aana chahiye.
 
-Har property ke baad coma lagana na bhoolein, aakhri property ke baad nahi.
-Price website par nahi dikhta, customer WhatsApp par poochta hai.
+**Step 3. Admin user banana (bohot zaroori)**
+1. **Authentication, phir Users, phir Add user, phir Create new user**. Apna email aur password daalein, "Auto Confirm User" ON rakhein.
+2. **Authentication, phir Sign In / Providers** (ya Settings) mein **"Allow new users to sign up" ko OFF** kar dein. Warna koi bhi apna account bana kar admin ban sakta hai.
 
-## Social media, phone, naam badalna
-`config.json` kholein aur links daalein. Khali link wala icon nahi dikhta.
-WhatsApp number country code ke saath, bina + ya space ke likhein (jaise 923001234567).
+**Step 4. Keys copy karna**
+**Project Settings, phir API** mein se **Project URL** aur **anon public key** copy karein aur `config.js` mein paste karein.
+(service_role key kabhi website mein na daalein.)
+
+**Step 5. GitHub aur Vercel**
+1. GitHub par naya repository banayein aur is folder ki saari files (images folder samait) upload karein.
+2. vercel.com par GitHub se login karein, **Add New, phir Project**, repo **Import** karein, **Deploy** dabayein.
+
+## Roz ka istemal
+Website ke footer mein **Admin login** par jayein, Step 3 wala email aur password dalein.
+- **Add a new property:** title, area, beds, size aur photo daal kar Add dabayein. Photo khud chhoti ho kar upload hoti hai.
+- **Mark sold / Mark rented:** property website se hat jati hai. Relist se wapas aa jati hai.
+- **Website settings:** naam, phone, WhatsApp, email, address, social media links, hero photo aur hero video.
+
+## Dhyan rahe
+- "Price" khana admin ke record ke liye hai, website par nahi dikhta. Lekin database public hai, is liye koi technical banda isay API se parh sakta hai. Agar price bilkul chhupana hai to us khane ko khali chorein.
+- Password bhool jayein to Supabase mein Authentication, phir Users se reset kar sakte hain.
